@@ -16,6 +16,21 @@ namespace UIRisRetro
 
 			_listView = new ListView ();
 			_listView.ItemTemplate = new DataTemplate (typeof(RetroItemCell));
+			_listView.ItemSelected += (sender, e) => {
+				var retroItem = (RetroItem)e.SelectedItem;
+				var todoPage = new RetroItemPage();
+				todoPage.BindingContext = retroItem;
+				Navigation.PushAsync(todoPage);
+			};		
+
+			var	tbi = new ToolbarItem("Add", null, () => {
+				var retroItem = new RetroItem();
+				var todoPage = new RetroItemPage();
+				todoPage.BindingContext = retroItem;
+				Navigation.PushAsync(todoPage);
+			}, 0, 0);
+
+			ToolbarItems.Add (tbi);
 
 			var loginButton = new Button () {
 				Text = "Login",

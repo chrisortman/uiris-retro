@@ -9,7 +9,7 @@ namespace UIRisRetro
 
 		public static Page GetMainPage ()
 		{	
-			return new RetroItemListPage ();
+			return new NavigationPage(new RetroItemListPage ());
 		}
 	}
 }
