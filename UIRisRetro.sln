@@ -51,6 +51,6 @@ Global
 		{775003CF-349F-4098-B76C-A0FF56182C9E}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = UIRisRetro\UIRisRetro.csproj
+		StartupItem = iOS\UIRisRetro.iOS.csproj
 	EndGlobalSection
 EndGlobal
