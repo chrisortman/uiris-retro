@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.WindowsAzure.MobileServices;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices.Sync;
+using Microsoft.WindowsAzure.MobileServices.SQLiteStore;
 
 namespace UIRisRetro
 {
@@ -16,17 +18,27 @@ namespace UIRisRetro
 		}
 
 		protected async Task EnsureInitialized() {
-				
+			if (!MobileService.SyncContext.IsInitialized) {
+				var store = new MobileServiceSQLiteStore ("uirisretro.db");
+				store.DefineTable<RetroItem> ();
+				await MobileService.SyncContext.InitializeAsync (store);
+			}
 		}
 
-		protected IMobileServiceTable<RetroItem> RetroItems {
-			get { return MobileService.GetTable<RetroItem> (); }
+		protected IMobileServiceSyncTable<RetroItem> RetroItems {
+			get { return MobileService.GetSyncTable<RetroItem> (); }
 		}
 
 		public override async System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<RetroItem>> FindAllItems ()
 		{
 			await EnsureInitialized ();
 
+			try {
+				await RetroItems.PullAsync ("allItems",RetroItems.CreateQuery());
+			} catch (MobileServicePushFailedException e) {
+				//swallow should probalby log
+				System.Diagnostics.Debug.WriteLine (e.ToString ());
+			}
 			var items = await RetroItems.CreateQuery ().ToEnumerableAsync();
 			return items;
 		}

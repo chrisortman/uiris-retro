@@ -17,6 +17,7 @@ namespace UIRisRetro.iOS
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			Forms.Init ();
+			SQLitePCL.CurrentPlatform.Init ();
 			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init ();
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
