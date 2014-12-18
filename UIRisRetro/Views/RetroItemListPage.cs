@@ -36,7 +36,7 @@ namespace UIRisRetro
 				Text = "Login",
 			};
 			loginButton.Clicked += async (sender, e) => {
-			
+				await Navigation.PushModalAsync(new LoginPage());
 			};
 
 			loginButton.BindingContext = App.Service;
