@@ -5,7 +5,7 @@ namespace UIRisRetro
 {
 	public class App
 	{
-		public static RetroItemService Service = new InMemoryRetroItemService();
+		public static RetroItemService Service = new AzureRetroItemService();
 
 		public static Page GetMainPage ()
 		{	
